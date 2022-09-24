@@ -33,7 +33,7 @@ jobs:
     - name: deploy to dev with artifact
       uses: azure/spring-cloud-deploy@v1
       with:
-        azure-subscription: ${{ dev.AZURE_SUBSCRIPTION }}
+        azure-subscription: 338a72ed-a5dc-4805-ae7e-6d6af7a0d3c3
         action: Deploy
         service-name: dev-spring-boot-cluster
         app-name: chroniqueweather
