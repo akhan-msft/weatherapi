@@ -1,5 +1,6 @@
 package com.chronique.weatherapi;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,8 +16,9 @@ public class WeatherController {
 
     private static final String API_KEY_NAME = "x-api-key";
 
-    private static final String API_KEY_VALUE = "b2904898b44825eff95503a7a878e96f9be430b861c055ff1a814725d4774ead";
 
+    @Value("${weatherapi.apikey}")
+    private String apiKey;
 
     @GetMapping(path = "/currentWeather", produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<WeatherMessage> getData(@RequestParam double lat, @RequestParam double lon ) throws Exception {
@@ -49,7 +51,7 @@ public class WeatherController {
         Mono<WeatherMessage> result = client
         .get()
         .uri("https://api.ambeedata.com/weather/latest/by-lat-lng?lat=" + latitude + "&lng=" + longitude)
-        .header(API_KEY_NAME, API_KEY_VALUE)
+        .header(API_KEY_NAME, apiKey)
         .retrieve()
         .bodyToMono(WeatherMessage.class);
         
@@ -63,7 +65,7 @@ public class WeatherController {
         Mono<AirQualityMessage> result = client
         .get()
         .uri("https://api.ambeedata.com/latest/by-lat-lng?lat=" + latitude + "&lng=" + longitude)
-        .header(API_KEY_NAME, API_KEY_VALUE)
+        .header(API_KEY_NAME, apiKey)
         .retrieve()
         .bodyToMono(AirQualityMessage.class);
         
@@ -75,6 +77,14 @@ public class WeatherController {
         Mono weather = getWeather(latitude, longitude);
         Mono aq = getAirQualityData(latitude, longitude);
         return Mono.zip(weather, aq);
+    }
+
+    public String getApiKey() {
+        return apiKey;
+    }
+
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
     }
 
  
