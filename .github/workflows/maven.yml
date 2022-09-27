@@ -33,6 +33,7 @@ jobs:
       uses: docker/build-push-action@v3.1.1
       with:
         context: .
+        push: true
         tags: akhan2017/weatheapi:latest
  
    
