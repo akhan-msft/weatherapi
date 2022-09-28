@@ -36,7 +36,21 @@ jobs:
         push: true
         tags: akhan2017/weatheapi:latest
  
-   
+    - name: Helm tool installer
+      uses: Azure/setup-helm@v3.3
+      with:
+        version: v3.10.0  
+        
+    - name: Azure Kubernetes set context
+      uses: Azure/aks-set-context@v3
+      with:
+        # Resource Group Name
+        resource-group: aksbicep1-rg
+        # AKS Cluster Name
+        cluster-name: aksbicep1
+        # AKS Cluster Subscription
+        creds:  ${{ secrets.AZURE_CREDENTIALS }}
+    
     - name: Login via Azure CLI
       uses: azure/login@v1
       with:
