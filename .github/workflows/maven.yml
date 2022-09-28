@@ -40,6 +40,11 @@ jobs:
       uses: Azure/setup-helm@v3.3
       with:
         version: v3.10.0  
+    
+    - name: Login via Azure CLI
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
         
     - name: Azure Kubernetes set context
       uses: Azure/aks-set-context@v3
@@ -50,11 +55,6 @@ jobs:
         cluster-name: aksbicep1
         # AKS Cluster Subscription
         creds:  ${{ secrets.AZURE_CREDENTIALS }}
-    
-    - name: Login via Azure CLI
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
 
     - name: deploy to dev with artifact
       uses: azure/spring-cloud-deploy@v1
