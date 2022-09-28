@@ -40,7 +40,15 @@ jobs:
       uses: Azure/setup-helm@v3.3
       with:
         version: v3.10.0  
-    
+        
+    - name: Kubectl tool installer
+      uses: Azure/setup-kubectl@v3
+      with:
+        version: v1.23.8
+        
+    - name: running kubectly cmds
+      run: kubectl version
+        
     - name: Login via Azure CLI
       uses: azure/login@v1
       with:
