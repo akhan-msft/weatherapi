@@ -60,8 +60,15 @@ jobs:
         cluster-name: aksdevk8s
         # AKS Cluster Subscription
         creds:  ${{ secrets.AZURE_CREDENTIALS }}
-        run: kubectl version
-        
+      
+    - name: Deploy to Kubernetes cluster
+      uses: Azure/k8s-deploy@v4
+      with:
+      # Choose the target Kubernetes namespace. If the namespace is not provided, the commands will run in the default namespace.
+        namespace: default
+        manifests: |
+          k8s/deployment.yaml
+          
     - name: deploy to dev with artifact
       uses: azure/spring-cloud-deploy@v1
       with:
