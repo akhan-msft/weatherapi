@@ -60,6 +60,7 @@ jobs:
         cluster-name: aksdevk8s
         # AKS Cluster Subscription
         creds:  ${{ secrets.AZURE_CREDENTIALS }}
+        run: kubectl version
         
     - name: deploy to dev with artifact
       uses: azure/spring-cloud-deploy@v1
