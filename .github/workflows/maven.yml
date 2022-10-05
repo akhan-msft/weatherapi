@@ -23,17 +23,46 @@ jobs:
     - name: Build with Maven
       run: mvn clean package --file pom.xml
       
+    - name: Docker Login
+      uses: docker/login-action@v2.0.0
+      with:
+        username:  ${{ secrets.DOCKERHUB_USERNAME }}
+        password:  ${{ secrets.DOCKERHUB_TOKEN }}
+        
     - name: Build and push Docker images
       uses: docker/build-push-action@v3.1.1
       with:
         context: .
+        push: true
         tags: akhan2017/weatheapi:latest
  
-   
+    - name: Helm tool installer
+      uses: Azure/setup-helm@v3.3
+      with:
+        version: v3.10.0  
+        
+    - name: Kubectl tool installer
+      uses: Azure/setup-kubectl@v3
+      with:
+        version: v1.23.8
+        
     - name: Login via Azure CLI
       uses: azure/login@v1
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: Azure Kubernetes set context
+      uses: Azure/aks-set-context@v3
+      with:
+        # Resource Group Name
+        resource-group: aksbicep1-rg
+        # AKS Cluster Name
+        cluster-name: aksbicep1
+        # AKS Cluster Subscription
+        creds:  ${{ secrets.AZURE_CREDENTIALS }}
+        
+    - name: running kubectly cmds
+      run: kubectl version
 
     - name: deploy to dev with artifact
       uses: azure/spring-cloud-deploy@v1
