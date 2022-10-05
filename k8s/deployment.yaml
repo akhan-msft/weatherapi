@@ -17,7 +17,7 @@ spec:
         - containerPort: 8080
   selector:
     matchLabels:
-      app: pizzabackend
+      app: weatherapibackend
 ---
 apiVersion: v1
 kind: Service
