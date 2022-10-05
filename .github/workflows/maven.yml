@@ -55,15 +55,12 @@ jobs:
       uses: Azure/aks-set-context@v3
       with:
         # Resource Group Name
-        resource-group: aksbicep1-rg
+        resource-group: aksdevk8s-rg
         # AKS Cluster Name
         cluster-name: aksbicep1
         # AKS Cluster Subscription
         creds:  ${{ secrets.AZURE_CREDENTIALS }}
         
-    - name: running kubectly cmds
-      run: kubectl version
-
     - name: deploy to dev with artifact
       uses: azure/spring-cloud-deploy@v1
       with:
