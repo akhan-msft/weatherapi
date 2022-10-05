@@ -57,7 +57,7 @@ jobs:
         # Resource Group Name
         resource-group: aksdevk8s-rg
         # AKS Cluster Name
-        cluster-name: aksbicep1
+        cluster-name: aksdevk8s
         # AKS Cluster Subscription
         creds:  ${{ secrets.AZURE_CREDENTIALS }}
         
