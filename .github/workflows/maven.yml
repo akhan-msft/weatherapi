@@ -34,7 +34,7 @@ jobs:
       with:
         context: .
         push: true
-        tags: akhan2017/weatheapi:latest
+        tags: akhan2017/weatherapi:latest
  
     - name: Helm tool installer
       uses: Azure/setup-helm@v3.3
