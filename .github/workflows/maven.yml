@@ -35,7 +35,16 @@ jobs:
         context: .
         push: true
         tags: akhan2017/weatherapi:latest
- 
+        
+    - name: SonarCloud Scan
+      # You may pin to the exact commit or the version.
+      # uses: SonarSource/sonarcloud-github-action@156db6fef3e168e4972abb76de0b32bbce8ec77a
+      uses: SonarSource/sonarcloud-github-action@v1.7
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: b413f0e0105484da11da42361d12c83638443032
+        
+
     - name: Helm tool installer
       uses: Azure/setup-helm@v3.3
       with:
