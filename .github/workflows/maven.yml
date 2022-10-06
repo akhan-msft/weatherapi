@@ -67,8 +67,8 @@ jobs:
         cluster-name: aksdevk8s
         # AKS Cluster Subscription
         #creds:  ${{ secrets.AZURE_AKS_PIPELINE_CREDS }}
-        admin: false
-        use-kubelogin: true
+        admin: true
+        use-kubelogin: false
       
     - name: Deploy to Kubernetes cluster
       uses: Azure/k8s-deploy@v4
