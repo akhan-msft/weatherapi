@@ -51,6 +51,13 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
         
+    - name: Set up kubelogin for non-interactive login
+      run: |
+        curl -LO https://github.com/Azure/kubelogin/releases/download/v0.0.9/kubelogin-linux-amd64.zip
+        sudo unzip -j kubelogin-linux-amd64.zip -d /usr/local/bin
+        rm -f kubelogin-linux-amd64.zip
+        kubelogin --version
+        
     - name: Azure Kubernetes set context
       uses: Azure/aks-set-context@v3
       with:
@@ -61,13 +68,13 @@ jobs:
         # AKS Cluster Subscription
         creds:  ${{ secrets.AZURE_CREDENTIALS }}
       
-    - name: Deploy to Kubernetes cluster
-      uses: Azure/k8s-deploy@v4
-      with:
+   # - name: Deploy to Kubernetes cluster
+   #   uses: Azure/k8s-deploy@v4
+   #   with:
       # Choose the target Kubernetes namespace. If the namespace is not provided, the commands will run in the default namespace.
-        namespace: default
-        manifests: |
-          k8s/deployment.yaml
+    #    namespace: default
+     #   manifests: |
+      #    k8s/deployment.yaml
           
     - name: deploy to dev with artifact
       uses: azure/spring-cloud-deploy@v1
