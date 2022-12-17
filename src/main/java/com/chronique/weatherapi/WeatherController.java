@@ -87,6 +87,13 @@ public class WeatherController {
         this.apiKey = apiKey;
     }
 
+    //returns the sum of 2 numbers
+    
+
+
+
+    
+
  
 
 }
